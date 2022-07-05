@@ -1,5 +1,4 @@
 # react-mesto-auth
-# GitHub Pages: https://foxymakc.github.io/mesto-react
 ---
 ### *Проект 12 спринта курс Веб-програмист Яндекс практикум.*  
 Портирование ранее созданого проекта [Mesto](https://github.com/foxymakc/mesto) при помощи React.
