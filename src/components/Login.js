@@ -26,7 +26,6 @@ const Login = ({ onLogin }) => {
   return (
     <form
       className="auth__form auth__form_login"
-      noValidate
       onSubmit={handleSubmit}
     >
       <h2 className="auth__title">Вход</h2>

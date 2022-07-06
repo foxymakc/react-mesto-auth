@@ -1,7 +1,7 @@
 function ImagePopup(props) {
   return (
     <div
-      className={`popup popup_full-scrin ${props.card ? "popup_opened" : ""}`}
+      className={`popup popup_full-scrin ${props.card&& 'popup_opened'}`}
     >
       <figure className="popup__container-image">
         <img

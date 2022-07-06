@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState} from "react";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
@@ -19,40 +19,34 @@ import fail from "../images/fail.svg";
 
 const App = () => {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] =
-    React.useState(false);
-  const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
-  const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState(null);
-  const [currentUser, setCurrentUser] = React.useState({});
-  const [cards, setCards] = React.useState([]);
-  const [loggedIn, setLoggedIn] = React.useState(false);
+    useState(false);
+  const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
+  const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState(null);
+  const [currentUser, setCurrentUser] = useState({});
+  const [cards, setCards] = useState([]);
+  const [loggedIn, setLoggedIn] = useState(false);
   const history = useHistory();
-  const [email, setEmail] = React.useState("");
-  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = React.useState(false);
-  const [message, setMessage] = React.useState({
+  const [email, setEmail] = useState("");
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
+  const [message, setMessage] = useState({
     imgRegistration: "",
     text: "",
   });
 
-  React.useEffect(() => {
-    api
-      .getUserInfo()
-      .then((data) => {
-        setCurrentUser(data);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  useEffect(() => {
+    if (loggedIn) {
+      Promise.all([api.getUserInfo(), api.getInitialCards()])
+        .then((data) => {
+          const [userData, cardsData] = data;
+          setCards(cardsData);
+          setCurrentUser(userData);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [loggedIn]);
 
-  React.useEffect(() => {
-    api
-      .getInitialCards()
-      .then((data) => {
-        setCards(data);
-      })
-      .catch((err) => console.log(err));
-  }, []);
-
-  React.useEffect(() => {
+  useEffect(() => {
     let jwt = localStorage.getItem("jwt");
 
     if (jwt) {
@@ -217,7 +211,7 @@ const App = () => {
             <Login onLogin={onLogin} />
           </Route>
 
-          <Route>
+          <Route path="*">
             {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-up" />}
           </Route>
         </Switch>

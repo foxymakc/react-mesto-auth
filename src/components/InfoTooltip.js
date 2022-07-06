@@ -1,6 +1,6 @@
 function InfoTooltip({ isOpen, onClose, imgRegistration, title }) {
   return (
-    <div className={`popup ${isOpen ? "popup_opened" : ""}`}>
+    <div className={`popup ${isOpen && 'popup_opened'}`}>
       <div className="popup__container">
         <div className="popup__tooltip">
           <img

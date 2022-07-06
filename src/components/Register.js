@@ -24,7 +24,7 @@ const Register = ({ onRegister }) => {
   };
 
   return (
-    <form className="auth__form" noValidate onSubmit={handleSubmit}>
+    <form className="auth__form" onSubmit={handleSubmit}>
       <h2 className="auth__title">Регистрация</h2>
       <fieldset className="auth__fieldset">
         <input
